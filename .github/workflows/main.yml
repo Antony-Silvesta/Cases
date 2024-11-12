@@ -44,11 +44,14 @@ jobs:
       uses: browser-actions/setup-chrome@v1
       with:
         chrome-version: 'latest'
+
+    - name: Set Timezone to India Standard Time (IST)
+      run: sudo timedatectl set-timezone Asia/Kolkata  # Set the timezone to IST   
     
     - name: Run Selenium tests and generate HTML report
       id: run_tests
       run: |
-            pytest test_valid_login.py --html=Selenium_report.html > pytest_test_results.log || exit 0
+            pytest test_valid_login.py --html=report.html > pytest_test_results.log || exit 0
             cat pytest_test_results.log
         
     - name: Archive Pytest Results
@@ -61,7 +64,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
             name: selenium-test-report
-            path: Selenium_report.html
+            path: report.html
         
 
 
