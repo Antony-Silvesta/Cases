@@ -53,14 +53,8 @@ jobs:
         ls -R   # Lists all files and directories recursively for debugging
     
    
-    - name: Run Selenium tests
+    - name: Run Selenium tests and generate HTML report
       id: run_tests
-      run: |
-            pytest -v login_testcases/test_valid_login.py > pytest_test_results.log || exit 0
-            cat pytest_test_results.log
-          
-        
-    - name: Generate HTML Test Report
       run: |
             pytest --html=Selenium_report.html --self-contained-html > pytest_test_results.log || exit 0
             cat pytest_test_results.log
