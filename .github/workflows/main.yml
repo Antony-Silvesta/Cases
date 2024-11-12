@@ -25,10 +25,10 @@ jobs:
         pip install -r requirements.txt
     - name: Set PYTHONPATH
       run: |
-        echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/LoginTest/"configfile/config.py >> $GITHUB_ENV
+        echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/Cases/"configfile/config.py >> $GITHUB_ENV
     - name: Set Environment Variables
       run: |
-        echo "PYTHONPATH=$PWD/login_test/homeobjects:$PWD/LoginTest/configfile/config.py" >> $GITHUB_ENV
+        echo "PYTHONPATH=$PWD/Cases/homeobjects:$PWD/Cases/configfile/config.py" >> $GITHUB_ENV
         echo "MONGO_URI=mongodb://127.0.0.1:27017/test_db" >> $GITHUB_ENV
     - name: Wait for MongoDB to be ready
       run: |
@@ -39,7 +39,7 @@ jobs:
         echo "MongoDB is ready"
     - name: Configure MongoDB Test Data
       run: |
-        python configfile/config.py  # Adjust the path to your setup script if necessary
+        pytest configfile/config.py  # Adjust the path to your setup script if necessary
     - name: Set up ChromeDriver and Chrome
       uses: browser-actions/setup-chrome@v1
       with:
