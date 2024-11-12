@@ -76,7 +76,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
             name: selenium-test-report
-            path: report.html
+            path: Selenium_report.html
         
 
 
