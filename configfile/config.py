@@ -33,11 +33,9 @@ def setup_mongodb():
             "email": "user2@test.com",
             "is_valid": True,
             "baseurl": "https://demo.filebrowser.org/login?redirect=/files/"
-        },
-        
+        }
     ]
     collection.insert_many(sample_data)
     print(f"Test data inserted into {db.name}.{collection.name}")
 if __name__ == "__main__":
     setup_mongodb()
-
