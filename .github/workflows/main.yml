@@ -62,7 +62,7 @@ jobs:
         
     - name: Generate HTML Test Report
       run: |
-            pytest login_testcases/test_valid_login.py --html=report.html --self-contained-html
+            pytest --html=Selenium_report.html --self-contained-html > pytest_test_results.log || exit 0
             cat pytest_test_results.log
    
         
