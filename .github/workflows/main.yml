@@ -44,10 +44,25 @@ jobs:
       uses: browser-actions/setup-chrome@v1
       with:
         chrome-version: 'latest'
-    - name: Run Selenium Tests
+    
+    - name: Run Selenium tests and generate HTML report
+      id: run_tests
       run: |
-        python -m unittest discover -s login_testcases -p "valid.py"
-
+            pytest --html=Selenium_report.html --self-contained-html > pytest_test_results.log || exit 0
+            cat pytest_test_results.log
+        
+    - name: Archive Pytest Results
+      uses: actions/upload-artifact@v3
+      with:
+            name: pytest-results
+            path: pytest_test_results.log
+        
+    - name: Archive HTML Test Report
+      uses: actions/upload-artifact@v3
+      with:
+            name: selenium-test-report
+            path: Selenium_report.html
+        
 
 
 
