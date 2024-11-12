@@ -55,7 +55,7 @@ jobs:
     - name: Run Selenium tests and generate HTML report
       id: run_tests
       run: |
-            pytest test_valid_login.py --html=report.html > pytest_test_results.log || exit 0
+            pytest --html=Selenium_report.html --self-contained-html > pytest_test_results.log || exit 0
             cat pytest_test_results.log
         
     - name: Archive Pytest Results
