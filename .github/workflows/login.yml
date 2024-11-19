@@ -15,82 +15,81 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.8'
-        run: echo "Python 3.8 has been set up"
-
     - name: Install dependencies
       run: |
-        echo "Installing dependencies from requirements.txt..."
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        echo "Dependencies installed successfully"
-
     - name: Set PYTHONPATH
       run: |
-          echo "Setting PYTHONPATH..."
           echo "PYTHONPATH=$PWD/Cases/homeobjects:$PWD/Cases/login_testcases:$PWD/Cases/configfile/config.py" >> $GITHUB_ENV
-          echo "PYTHONPATH has been set"
-
+      
     - name: Set Environment Variables
       run: |
-          echo "Setting environment variables..."
+          echo "PYTHONPATH=$PWD/Cases/homeobjects:$PWD/Cases/login_testcases:$PWD/Cases/configfile/config.py" >> $GITHUB_ENV
           echo "MONGO_URI=mongodb://127.0.0.1:27017/sampleupload" >> $GITHUB_ENV
-          echo "Environment variables set successfully"
-
+      
     - name: Wait for MongoDB to be ready
       run: |
-          echo "Waiting for MongoDB to be ready..."
           until nc -zv localhost 27017; do
-            echo "MongoDB is not ready yet. Retrying in 1 second..."
+            echo "Waiting for MongoDB to start..."
             sleep 1
           done
           echo "MongoDB is ready"
-
+      
     - name: Configure MongoDB Test Data
       run: |
-          echo "Configuring MongoDB with test data..."
-          Cases/configfile/config.py
-          echo "MongoDB configuration completed"
-
+          python Cases/configfile/config.py
+      
     - name: Set up ChromeDriver and Chrome
       uses: browser-actions/setup-chrome@v1
       with:
         chrome-version: 'latest'
-        run: echo "ChromeDriver and Chrome set up successfully"
 
     - name: Set Timezone to India Standard Time (IST)
-      run: |
-        echo "Setting timezone to India Standard Time..."
-        sudo timedatectl set-timezone Asia/Kolkata
-        echo "Timezone set to IST"
-
+      run: sudo timedatectl set-timezone Asia/Kolkata  # Set the timezone to IST  
+      
     - name: List all files and directories
       run: |
-        echo "Listing all files and directories recursively for debugging..."
-        ls -R
-
+        ls -R   # Lists all files and directories recursively for debugging
+    
+   
     - name: Run Selenium tests and generate HTML report
       id: run_tests
       run: |
-            echo "Running Selenium tests and generating HTML report..."
             pytest --html=report.html --self-contained-html > pytest_test_results.log || exit 0
-            echo "Selenium tests completed. Printing log file:"
             cat pytest_test_results.log
-
+   
+        
     - name: Archive Pytest Results
       uses: actions/upload-artifact@v3
       with:
             name: pytest-results
             path: pytest_test_results.log
-            run: echo "Pytest results archived successfully"
-
+        
     - name: Archive HTML Test Report
       uses: actions/upload-artifact@v3
       with:
             name: selenium-test-report
             path: report.html
-            run: echo "HTML test report archived successfully"
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
