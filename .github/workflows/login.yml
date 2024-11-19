@@ -19,12 +19,6 @@ jobs:
         echo "PYTHONPATH=$PWD/Cases/homeobjects:$PWD/Cases/login_testcases:$PWD/Cases/configfile" >> $GITHUB_ENV
         echo "MONGO_URI=mongodb://127.0.0.1:27017/sampleupload" >> $GITHUB_ENV
 
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y mongodb python3-pip
-        pip3 install pymongo
-
     - name: Start MongoDB Service
       run: |
         sudo systemctl start mongodb
