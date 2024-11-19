@@ -22,7 +22,7 @@ def driver():
     options = Options()
     options.add_argument("--headless")  # Run in headless mode
     options.add_argument("--disable-gpu")  # Disable GPU hardware acceleration
-    options.add_argument("--window-size=1920x1080")  # Set window size 
+    options.add_argument("--window-size=1920x1080")  # Set window size (needed for headless mode)
     
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(5)
